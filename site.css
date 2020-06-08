@@ -1,0 +1,34 @@
+:root {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.main-content {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.graph {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+/* Graph styles */
+path.line {
+  stroke-width: 7;
+  fill: #962121;
+  fill: #ff7b00;
+  fill: none;
+}
