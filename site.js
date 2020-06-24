@@ -1,6 +1,6 @@
 let graph = new TimeSeriesGraph("#line-graph");
 
-async function getCovidData() {
+async function getCovidDataApify() {
   const apiUrl =
     "https://api.apify.com/v2/datasets/3S2T1ZBxB9zhRJTBB/items?format=json&clean=1";
   const response = await fetch(apiUrl);
@@ -32,7 +32,7 @@ async function getCovidData() {
   });
   return filteredData;
 }
-getCovidData().then((data) => {
+getCovidDataApify().then((data) => {
   let infected = data.map((e) => [e.date, e.brazil.infected]);
   let deceased = data.map((e) => [e.date, e.brazil.deceased]);
   console.log(infected);
@@ -40,3 +40,6 @@ getCovidData().then((data) => {
   graph.addData(infected, "#ff7b00", "infected");
   graph.addData(deceased, "#962121", "deceased");
 });
+
+// TODO: Create getCovidDataOfficial
+// It will get from the automatically generated csv
