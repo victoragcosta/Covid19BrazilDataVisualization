@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+import os
 
 # Getting today's file location
 print("Getting today's file location")
@@ -20,10 +21,11 @@ print("Got today's file and saved it")
 
 # Converting file to csv
 print("Converting file to csv")
-csv_name = name.replace(".xlsx", ".csv")
+# csv_name = name.replace(".xlsx", ".csv")
+csv_name = "HIST_PAINEL_COVIDBR.csv"
 data_xls = pd.read_excel(name)
 data_xls.to_csv(csv_name, encoding="utf-8", index=False)
 print("Converted file to csv")
 
-# TODO: Organize files in a folder for history
-# TODO: Save most recent as a default name
+# Remove xlsx file
+os.remove(name)
