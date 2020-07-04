@@ -12,6 +12,12 @@ class LineGraph {
       left: 150,
     };
 
+    // Guarantee graph styling
+    this.element.classed("graph", true);
+
+    // Create key element
+    this.key = this.element.append("div").attr("class", "key");
+
     this.svg = this.element
       .append("svg")
       .style("width", "100%")
@@ -97,6 +103,7 @@ class LineGraph {
       .attr("d", (d) => line(d.data))
       .attr("stroke", (d) => d.color)
       .attr("stroke-dashoffset", 0);
+    this.renderKey();
   }
 
   insertYAxis(transition) {
@@ -150,9 +157,45 @@ class LineGraph {
     return { data, minX, maxX, minY, maxY };
   }
 
-  addData(data, color = "steelblue", id = null) {
-    this.data[id] = { data, color };
+  addData(data, color = "steelblue", id = null, name = undefined) {
+    this.data[id] = { data, color, name };
     this.renderData();
+  }
+
+  renderKey() {
+    // Extract key data
+    let key = [];
+    for (const id in this.data) {
+      if (this.data.hasOwnProperty(id)) {
+        const { data, color, name } = this.data[id];
+        if (data.length > 0) key.push({ id, name: name ? name : id, color });
+      }
+    }
+
+    // Update key
+    this.key
+      .selectAll("div.key-element")
+      .data(key, (d) => d.id)
+      .join(
+        (enter) =>
+          enter
+            .append("div")
+            .attr("class", "key-element")
+            .call((element) =>
+              element
+                .append("div")
+                .attr("class", "key-element-name")
+                .text((d) => d.name)
+            )
+            .call((element) =>
+              element
+                .append("div")
+                .attr("class", "key-element-color")
+                .style("background-color", (d) => d.color)
+            ),
+        (update) => update,
+        (exit) => exit.remove()
+      );
   }
 }
 

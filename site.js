@@ -72,28 +72,74 @@ async function getCovidDataOfficial() {
 //   graph.addData(deceased, "#962121", "deceased");
 // });
 
-let filter = "Brasil";
+let filter = d3.select("#region").node().value;
 let graphs = [
-  { name: "deceased", column: "obitosAcumulado", color: "#962121" },
-  { name: "infected", column: "casosAcumulado", color: "#ff7b00" },
-  { name: "current", column: "emAcompanhamentoNovos", color: "#dede00" },
-  { name: "healed", column: "Recuperadosnovos", color: "#007b00" },
+  {
+    id: "deceased",
+    name: "Total de óbitos",
+    column: "obitosAcumulado",
+    color: "#962121",
+  },
+  {
+    id: "infected",
+    name: "Total de casos",
+    column: "casosAcumulado",
+    color: "#ff7b00",
+  },
+  {
+    id: "current",
+    name: "Total de casos correntes",
+    column: "emAcompanhamentoNovos",
+    color: "#dede00",
+  },
+  {
+    id: "healed",
+    name: "Total de casos recuperados",
+    column: "Recuperadosnovos",
+    color: "#007b00",
+  },
 ];
-getCovidDataOfficial()
-  .then((data) => {
-    let filteredData;
-    if (filter === "Brasil") {
-      filteredData = data.filter((e) => e.regiao === "Brasil");
-    } else if (filter.split(" ")[0] === "Estado") {
-      let uf = filter.split(" ")[1];
-      filteredData = data.filter((e) => e.estado === uf && e.municipio === "");
-    }
-    filteredData = filteredData.sort((a, b) => a.data - b.data);
-    return filteredData;
-  })
-  .then((data) => {
-    graphs.forEach((graphInfo) => {
-      let treatedData = data.map((e) => [e.data, e[graphInfo.column]]);
-      graph.addData(treatedData, graphInfo.color, graphInfo.name);
+function setGraph() {
+  d3.select(d3.select("#region").node().parentNode)
+    // .insert("p", ":first-child")
+    .append("p")
+    .attr("class", "delete-me")
+    .text("Carregando...");
+  getCovidDataOfficial()
+    .then((data) => {
+      let filteredData;
+      if (filter === "BR") {
+        filteredData = data.filter((e) => e.regiao === "Brasil");
+      } else if (filter.split(" ")[0] === "UF") {
+        let uf = filter.split(" ")[1];
+        filteredData = data.filter(
+          (e) => e.estado === uf && e.municipio === "" && e.codmun === ""
+        );
+      }
+      filteredData = filteredData.sort((a, b) => a.data - b.data);
+      return filteredData;
+    })
+    .then((data) => {
+      graphs.forEach((graphInfo) => {
+        let treatedData = data
+          .map((e) => [e.data, e[graphInfo.column]])
+          .filter((e) => e[1] > 0);
+
+        graph.addData(
+          treatedData,
+          graphInfo.color,
+          graphInfo.id,
+          graphInfo.name
+        );
+      });
+    })
+    .then(() => {
+      d3.selectAll(".delete-me").remove();
     });
-  });
+}
+setGraph();
+
+document.getElementById("region").onchange = function (ev) {
+  filter = this.value;
+  setGraph();
+};

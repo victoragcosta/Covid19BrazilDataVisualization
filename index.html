@@ -12,12 +12,44 @@
       rel="stylesheet"
     />
 
+    <!-- Including graph styles -->
+    <link rel="stylesheet" href="line_graph.css" />
     <!-- Including site styles -->
     <link rel="stylesheet" href="site.css" />
   </head>
   <body>
     <div class="main-content">
       <h1>Covid19 no Brasil</h1>
+      <select name="region" id="region">
+        <option value="BR" selected>BR - Brasil</option>
+        <option value="UF AC">AC - Acre</option>
+        <option value="UF AL">AL - Alagoas</option>
+        <option value="UF AM">AM - Amazonas</option>
+        <option value="UF AP">AP - Amapá</option>
+        <option value="UF BA">BA - Bahia</option>
+        <option value="UF CE">CE - Ceará</option>
+        <option value="UF DF">DF - Distrito Federal</option>
+        <option value="UF ES">ES - Espírito Santo</option>
+        <option value="UF GO">GO - Goiás</option>
+        <option value="UF MA">MA - Maranhão</option>
+        <option value="UF MG">MG - Minas Gerais</option>
+        <option value="UF MS">MS - Mato Grosso do Sul</option>
+        <option value="UF MT">MT - Mato Grosso</option>
+        <option value="UF PA">PA - Pará</option>
+        <option value="UF PB">PB - Paraíba</option>
+        <option value="UF PE">PE - Pernambuco</option>
+        <option value="UF PI">PI - Piauí</option>
+        <option value="UF PR">PR - Paraná</option>
+        <option value="UF RJ">RJ - Rio de Janeiro</option>
+        <option value="UF RN">RN - Rio Grande do Norte</option>
+        <option value="UF RO">RO - Rondônia</option>
+        <option value="UF RR">RR - Roraima</option>
+        <option value="UF RS">RS - Rio Grande do Sul</option>
+        <option value="UF SC">SC - Santa Catarina</option>
+        <option value="UF SE">SE - Sergipe</option>
+        <option value="UF SP">SP - São Paulo</option>
+        <option value="UF TO">TO - Tocantins</option>
+      </select>
       <div class="graph" id="line-graph"></div>
     </div>
   </body>

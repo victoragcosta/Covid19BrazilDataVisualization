@@ -1,0 +1,44 @@
+.graph,
+.graph *,
+.graph::before,
+.graph::after,
+.graph *::before,
+.graph *::after {
+  box-sizing: border-box;
+}
+
+.graph {
+  padding: 1.5em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.graph .key {
+  width: 100%;
+  max-width: 20em;
+  background-color: white;
+  border: 2px solid black;
+  padding: 0.5em;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5em 1.5em;
+}
+
+.graph .key-element {
+  height: 1.5em;
+  grid-column-end: span 2;
+
+  display: contents;
+}
+
+.graph .key-element-color {
+  --size-height: 20%;
+  --size-translate: calc((100 / 20) / 2 * 100% - 50%);
+  grid-column: 2 / 3;
+  height: var(--size-height);
+  width: 100%;
+  transform: translateY(var(--size-translate));
+}
