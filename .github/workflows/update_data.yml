@@ -28,7 +28,7 @@ jobs:
     - name: Install python dependencies
       run: |
         pip3 install pandas
-        pip3 install xrld
+        pip install xlrd
 
     # Runs a python script that fetchs the data
     - name: Fetch official data
