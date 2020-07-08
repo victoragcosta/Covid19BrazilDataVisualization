@@ -33,7 +33,14 @@ jobs:
     # Runs a python script that fetchs the data
     - name: Fetch official data
       run: python3 fetch_official_data.py
-
-    # Test if file is being updated
-    - name: Test file generation
-      run: cat HIST_PAINEL_COVIDBR.csv
+    
+    # Commit updated file
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v4
+      with:
+        author_name: Victor Costa
+        author_email: victorandr98@gmail.com
+        message: "Update Brazil Covid19 data"
+        add: "*.csv"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
