@@ -99,45 +99,42 @@ let graphs = [
     color: "#007b00",
   },
 ];
+
+let extractedData;
 function setGraph() {
   d3.select(d3.select("#region").node().parentNode)
     // .insert("p", ":first-child")
     .append("p")
     .attr("class", "delete-me")
     .text("Carregando...");
-  getCovidDataOfficial()
-    .then((data) => {
-      let filteredData;
-      if (filter === "BR") {
-        filteredData = data.filter((e) => e.regiao === "Brasil");
-      } else if (filter.split(" ")[0] === "UF") {
-        let uf = filter.split(" ")[1];
-        filteredData = data.filter(
-          (e) => e.estado === uf && e.municipio === "" && e.codmun === ""
-        );
-      }
-      filteredData = filteredData.sort((a, b) => a.data - b.data);
-      return filteredData;
-    })
-    .then((data) => {
-      graphs.forEach((graphInfo) => {
-        let treatedData = data
-          .map((e) => [e.data, e[graphInfo.column]])
-          .filter((e) => e[1] > 0);
 
-        graph.addData(
-          treatedData,
-          graphInfo.color,
-          graphInfo.id,
-          graphInfo.name
-        );
-      });
-    })
-    .then(() => {
-      d3.selectAll(".delete-me").remove();
-    });
+  let filteredData;
+  if (filter === "BR") {
+    filteredData = extractedData.filter((e) => e.regiao === "Brasil");
+  } else if (filter.split(" ")[0] === "UF") {
+    let uf = filter.split(" ")[1];
+    filteredData = extractedData.filter(
+      (e) => e.estado === uf && e.municipio === "" && e.codmun === ""
+    );
+  }
+  filteredData = filteredData.sort((a, b) => a.data - b.data);
+
+  graphs.forEach((graphInfo) => {
+    let treatedData = filteredData
+      .map((e) => [e.data, e[graphInfo.column]])
+      .filter((e) => e[1] > 0);
+
+    graph.addData(treatedData, graphInfo.color, graphInfo.id, graphInfo.name);
+  });
+
+  d3.selectAll(".delete-me").remove();
 }
-setGraph();
+
+getCovidDataOfficial()
+  .then((data) => {
+    extractedData = data;
+  })
+  .then(setGraph);
 
 document.getElementById("region").onchange = function (ev) {
   filter = this.value;
