@@ -11,6 +11,11 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
       rel="stylesheet"
     />
+    <!-- Red Hat Display -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Including graph styles -->
     <link rel="stylesheet" href="line_graph.css" />
@@ -18,40 +23,86 @@
     <link rel="stylesheet" href="site.css" />
   </head>
   <body>
-    <div class="main-content">
-      <h1>Covid19 no Brasil</h1>
-      <select name="region" id="region">
-        <option value="BR" selected>BR - Brasil</option>
-        <option value="UF AC">AC - Acre</option>
-        <option value="UF AL">AL - Alagoas</option>
-        <option value="UF AM">AM - Amazonas</option>
-        <option value="UF AP">AP - Amapá</option>
-        <option value="UF BA">BA - Bahia</option>
-        <option value="UF CE">CE - Ceará</option>
-        <option value="UF DF">DF - Distrito Federal</option>
-        <option value="UF ES">ES - Espírito Santo</option>
-        <option value="UF GO">GO - Goiás</option>
-        <option value="UF MA">MA - Maranhão</option>
-        <option value="UF MG">MG - Minas Gerais</option>
-        <option value="UF MS">MS - Mato Grosso do Sul</option>
-        <option value="UF MT">MT - Mato Grosso</option>
-        <option value="UF PA">PA - Pará</option>
-        <option value="UF PB">PB - Paraíba</option>
-        <option value="UF PE">PE - Pernambuco</option>
-        <option value="UF PI">PI - Piauí</option>
-        <option value="UF PR">PR - Paraná</option>
-        <option value="UF RJ">RJ - Rio de Janeiro</option>
-        <option value="UF RN">RN - Rio Grande do Norte</option>
-        <option value="UF RO">RO - Rondônia</option>
-        <option value="UF RR">RR - Roraima</option>
-        <option value="UF RS">RS - Rio Grande do Sul</option>
-        <option value="UF SC">SC - Santa Catarina</option>
-        <option value="UF SE">SE - Sergipe</option>
-        <option value="UF SP">SP - São Paulo</option>
-        <option value="UF TO">TO - Tocantins</option>
-      </select>
-      <div class="graph" id="line-graph"></div>
-    </div>
+    <header class="navbar">
+      <div class="container">
+        <div class="navbar__brand">
+          <h1>COVID19 - Brasil</h1>
+        </div>
+        <nav class="navbar__nav nav">
+          <ul>
+            <li class="nav-item">
+              <a href="#graph-section" class="nav-link">Gráficos</a>
+            </li>
+            <li class="nav-item">
+              <a href="#number-section" class="nav-link">Números</a>
+            </li>
+          </ul>
+        </nav>
+        <a href="#" class="navbar__toggle">H</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Region selector -->
+      <div class="region">
+        <div class="container">
+          <label class="region__label" for="region">Região analisada</label>
+          <select class="region__input" name="region" id="region">
+            <option value="BR" selected>BR - Brasil</option>
+            <option value="UF AC">AC - Acre</option>
+            <option value="UF AL">AL - Alagoas</option>
+            <option value="UF AM">AM - Amazonas</option>
+            <option value="UF AP">AP - Amapá</option>
+            <option value="UF BA">BA - Bahia</option>
+            <option value="UF CE">CE - Ceará</option>
+            <option value="UF DF">DF - Distrito Federal</option>
+            <option value="UF ES">ES - Espírito Santo</option>
+            <option value="UF GO">GO - Goiás</option>
+            <option value="UF MA">MA - Maranhão</option>
+            <option value="UF MG">MG - Minas Gerais</option>
+            <option value="UF MS">MS - Mato Grosso do Sul</option>
+            <option value="UF MT">MT - Mato Grosso</option>
+            <option value="UF PA">PA - Pará</option>
+            <option value="UF PB">PB - Paraíba</option>
+            <option value="UF PE">PE - Pernambuco</option>
+            <option value="UF PI">PI - Piauí</option>
+            <option value="UF PR">PR - Paraná</option>
+            <option value="UF RJ">RJ - Rio de Janeiro</option>
+            <option value="UF RN">RN - Rio Grande do Norte</option>
+            <option value="UF RO">RO - Rondônia</option>
+            <option value="UF RR">RR - Roraima</option>
+            <option value="UF RS">RS - Rio Grande do Sul</option>
+            <option value="UF SC">SC - Santa Catarina</option>
+            <option value="UF SE">SE - Sergipe</option>
+            <option value="UF SP">SP - São Paulo</option>
+            <option value="UF TO">TO - Tocantins</option>
+          </select>
+        </div>
+      </div>
+      <!-- /Region selector -->
+
+      <!-- Graph -->
+      <div class="section graph-section" id="graph-section">
+        <div class="container">
+          <h2 class="section__title">Gráficos</h2>
+          <div class="graph" id="line-graph"></div>
+        </div>
+      </div>
+      <!-- /Graph -->
+
+      <!-- Numbers section -->
+      <div
+        class="section number-section"
+        id="number-section"
+        style="height: 80vh;"
+      >
+        <div class="container">
+          <h2 class="section__title">Números</h2>
+          <p style="font-size: 1.5rem;">Em construção</p>
+        </div>
+      </div>
+      <!-- /Numbers section -->
+    </main>
   </body>
   <!-- Including D3 -->
   <!-- <script src="d3.v5.min.js"></script> -->
