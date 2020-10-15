@@ -1,0 +1,46 @@
+.card-grid {
+  display: grid;
+  gap: 0.75em;
+}
+
+.card {
+  background-color: white;
+  color: var(--clr-primary);
+  padding: 1em 1em 0.6em;
+  border-radius: 0.6em;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.3em;
+}
+
+.card-value {
+  color: #222;
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.card-date {
+  color: var(--clr-gray-text);
+  font-size: 0.8rem;
+}
+
+.card-spacer {
+  flex-grow: 1;
+}
+
+@media (min-width: 480px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

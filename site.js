@@ -1,4 +1,5 @@
 let graph = new TimeSeriesGraph("#line-graph");
+let cardManager = new CardsManager("#numbers-cards");
 
 // Gets data from Apify
 async function getCovidDataApify() {
@@ -99,15 +100,41 @@ let graphs = [
     color: "#007b00",
   },
 ];
+let numbers = [
+  {
+    id: "deceased",
+    name: "Total de óbitos",
+    column: "obitosAcumulado",
+  },
+  {
+    id: "deceased-new",
+    name: "Novos óbitos",
+    column: "obitosNovos",
+  },
+  {
+    id: "infected",
+    name: "Total de casos",
+    column: "casosAcumulado",
+  },
+  {
+    id: "infected-new",
+    name: "Novos casos",
+    column: "casosNovos",
+  },
+  {
+    id: "current",
+    name: "Total de casos correntes",
+    column: "emAcompanhamentoNovos",
+  },
+  {
+    id: "healed",
+    name: "Total de casos recuperados",
+    column: "Recuperadosnovos",
+  },
+];
 
 let extractedData;
 function setGraph() {
-  d3.select(d3.select("#region").node().parentNode)
-    // .insert("p", ":first-child")
-    .append("p")
-    .attr("class", "delete-me")
-    .text("Carregando...");
-
   let filteredData;
   if (filter === "BR") {
     filteredData = extractedData.filter((e) => e.regiao === "Brasil");
@@ -117,6 +144,7 @@ function setGraph() {
       (e) => e.estado === uf && e.municipio === "" && e.codmun === ""
     );
   }
+  // Ordenar por data
   filteredData = filteredData.sort((a, b) => a.data - b.data);
 
   graphs.forEach((graphInfo) => {
@@ -125,6 +153,24 @@ function setGraph() {
       .filter((e) => e[1] > 0);
 
     graph.addData(treatedData, graphInfo.color, graphInfo.id, graphInfo.name);
+  });
+
+  numbers.forEach((numberInfo) => {
+    let treatedData = filteredData
+      .map((e) => [e.data, e[numberInfo.column]])
+      .filter((e) => e[1] > 0);
+
+    let mostRecent = treatedData[treatedData.length - 1];
+    if (mostRecent) {
+      cardManager.addData(
+        numberInfo.id,
+        numberInfo.name,
+        mostRecent[0],
+        mostRecent[1]
+      );
+    } else {
+      cardManager.removeData(numberInfo.id);
+    }
   });
 
   d3.selectAll(".delete-me").remove();
