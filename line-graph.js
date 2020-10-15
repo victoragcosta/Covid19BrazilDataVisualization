@@ -16,7 +16,17 @@ class LineGraph {
     this.element.classed("graph", true);
 
     // Create key element
-    this.key = this.element.append("div").attr("class", "key");
+    this.key = this.element
+      .append("div")
+      .attr("class", "key show-me")
+      .style("display", "none");
+
+    // Add loading spinner
+    this.spinner = this.element
+      .append("div")
+      .attr("class", "overlay delete-me")
+      .append("div")
+      .attr("class", "spinner");
 
     this.svg = this.element
       .append("svg")

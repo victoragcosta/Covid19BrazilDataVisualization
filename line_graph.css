@@ -9,6 +9,7 @@
 
 .graph {
   padding: 0.5em;
+  position: relative;
 
   display: flex;
   flex-direction: column;

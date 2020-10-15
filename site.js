@@ -128,6 +128,7 @@ function setGraph() {
   });
 
   d3.selectAll(".delete-me").remove();
+  d3.selectAll(".show-me").style("display", null);
 }
 
 getCovidDataOfficial()

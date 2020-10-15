@@ -80,6 +80,41 @@ body {
   width: 4em;
 }
 
+/* Spinner */
+.spinner {
+  color: var(--clr-primary);
+  border: 0.3em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+
+  animation: rotate 1s ease 0s infinite normal forwards;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Overlay */
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 /* Layout */
 .container {
   margin: 0 auto;
