@@ -36,12 +36,12 @@ async function getCovidDataApify() {
 
 // Gets data from an automatically generated csv from the official Brazil data
 // Fields:
-// regiao,estado,municipio,coduf,codmun,codRegiaoSaude,nomeRegiaoSaude,
-// data, semanaEpi, populacaoTCU2019,
-// casosAcumulado, casosNovos, obitosAcumulado, obitosNovos, Recuperadosnovos, emAcompanhamentoNovos, FgMetro
+// regiao;estado;municipio;coduf;codmun;codRegiaoSaude;nomeRegiaoSaude;
+// data; semanaEpi; populacaoTCU2019;
+// casosAcumulado; casosNovos; obitosAcumulado; obitosNovos; Recuperadosnovos; emAcompanhamentoNovos; interior/metropolitana
 async function getCovidDataOfficial() {
   // Extract rows from the CSV
-  let data = await d3.csv("HIST_PAINEL_COVIDBR.csv", function (d) {
+  let data = await d3.dsv(";", "HIST_PAINEL_COVIDBR.csv", function (d) {
     let processed = {};
     for (const param in d) {
       if (d.hasOwnProperty(param)) {

@@ -1,6 +1,5 @@
-import xlrd
-import pandas as pd
 import requests
+import zipfile
 import os
 
 # Getting today's file location
@@ -16,17 +15,18 @@ print("Got today's file location")
 print("Getting today's file and saving it")
 r2 = requests.get(arquivo)
 with open(name, 'wb') as fd:
-    for chunk in r2.iter_content(chunk_size=128):
-        fd.write(chunk)
+  for chunk in r2.iter_content(chunk_size=128):
+    fd.write(chunk)
 print("Got today's file and saved it")
 
-# Converting file to csv
-print("Converting file to csv")
-# csv_name = name.replace(".xlsx", ".csv")
+# Extracting csv file
+print("Extracting csv file")
 csv_name = "HIST_PAINEL_COVIDBR.csv"
-data_xls = pd.read_excel(name)
-data_xls.to_csv(csv_name, encoding="utf-8", index=False)
-print("Converted file to csv")
+with zipfile.ZipFile(name, 'r') as downloaded, open(csv_name, 'wb') as target:
+  to_extract = downloaded.namelist()[0]
+  print(f"Extracting {to_extract} to {csv_name}")
+  target.write(downloaded.read(to_extract))
+print("Extracted csv file")
 
-# Remove xlsx file
+# Remove zip file
 os.remove(name)
