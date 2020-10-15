@@ -18,25 +18,24 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    
-    - name: Install python dependencies
-      run: |
-        pip3 install pandas
-        pip3 install xlrd
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-    # Runs a python script that fetchs the data
-    - name: Fetch official data
-      run: python3 fetch_official_data.py
-    
-    # Commit updated file
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v4
-      with:
-        author_name: Victor Costa
-        author_email: victorandr98@gmail.com
-        message: "Update Brazil Covid19 data"
-        add: "*.csv"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install python dependencies
+        run: |
+          pip3 install -r requirements.txt
+
+      # Runs a python script that fetchs the data
+      - name: Fetch official data
+        run: python3 fetch_official_data.py
+
+      # Commit updated file
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v4
+        with:
+          author_name: Victor Costa
+          author_email: victorandr98@gmail.com
+          message: "Update Brazil Covid19 data"
+          add: "*.csv"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
