@@ -1,0 +1,7 @@
+@host = https://xx9p7hp1p7.execute-api.us-east-1.amazonaws.com/prod/PortalGeral
+@key = unAFkcaNDeXajurGB7LChj8SgQYS2ptm
+
+###
+
+GET {{host}} HTTP/1.1
+x-parse-application-id: {{key}}
